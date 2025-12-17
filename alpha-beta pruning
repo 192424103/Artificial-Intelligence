@@ -1,0 +1,38 @@
+ALPHA_BETA(Node, Depth, Alpha, Beta, IsMaxPlayer)
+
+    IF Depth = 0 OR Node is terminal THEN
+        RETURN value of Node
+    END IF
+
+    IF IsMaxPlayer = TRUE THEN
+        Best ← -∞
+
+        FOR each Child of Node DO
+            Value ← ALPHA_BETA(Child, Depth-1, Alpha, Beta, FALSE)
+            Best ← max(Best, Value)
+            Alpha ← max(Alpha, Best)
+
+            IF Beta ≤ Alpha THEN
+                BREAK   // Beta Cutoff
+            END IF
+        END FOR
+
+        RETURN Best
+
+    ELSE
+        Best ← +∞
+
+        FOR each Child of Node DO
+            Value ← ALPHA_BETA(Child, Depth-1, Alpha, Beta, TRUE)
+            Best ← min(Best, Value)
+            Beta ← min(Beta, Best)
+
+            IF Beta ≤ Alpha THEN
+                BREAK   // Alpha Cutoff
+            END IF
+        END FOR
+
+        RETURN Best
+    END IF
+
+END ALPHA_BETA
