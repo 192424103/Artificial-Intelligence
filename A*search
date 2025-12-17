@@ -1,0 +1,32 @@
+A_Star(Graph, StartNode, GoalNode)
+
+    // Graph contains cost and heuristic values
+    CREATE empty priority queue OPEN
+    CREATE empty set CLOSED
+
+    INSERT (StartNode, g = 0, f = h(StartNode)) into OPEN
+
+    WHILE OPEN is not empty DO
+        CurrentNode ← REMOVE node with minimum f from OPEN
+
+        IF CurrentNode = GoalNode THEN
+            PRINT "Goal reached"
+            STOP
+        END IF
+
+        ADD CurrentNode to CLOSED
+
+        FOR each Neighbor of CurrentNode in Graph DO
+            IF Neighbor not in CLOSED THEN
+                g_new ← g(CurrentNode) + cost(CurrentNode, Neighbor)
+                f_new ← g_new + h(Neighbor)
+
+                INSERT (Neighbor, g_new, f_new) into OPEN
+            END IF
+        END FOR
+
+    END WHILE
+
+    PRINT "Goal not reachable"
+
+END A_Star
