@@ -1,0 +1,36 @@
+WATER_JUG(Jug1_Capacity, Jug2_Capacity, Target)
+
+    CREATE empty set Visited
+    CREATE empty queue Q
+
+    INITIAL_STATE ← (0, 0)
+    ENQUEUE INITIAL_STATE into Q
+    ADD INITIAL_STATE to Visited
+
+    WHILE Q is not empty DO
+        (x, y) ← DEQUEUE Q
+
+        IF x = Target OR y = Target THEN
+            PRINT "Target reached"
+            STOP
+        END IF
+
+        GENERATE all possible next states:
+            (Jug1_Capacity, y)          // Fill Jug1
+            (x, Jug2_Capacity)          // Fill Jug2
+            (0, y)                      // Empty Jug1
+            (x, 0)                      // Empty Jug2
+            (x - min(x, Jug2_Capacity - y), y + min(x, Jug2_Capacity - y))
+            (x + min(y, Jug1_Capacity - x), y - min(y, Jug1_Capacity - x))
+
+        FOR each NewState DO
+            IF NewState not in Visited THEN
+                ADD NewState to Visited
+                ENQUEUE NewState into Q
+            END IF
+        END FOR
+    END WHILE
+
+    PRINT "Target not reachable"
+
+END WATER_JUG
