@@ -1,0 +1,30 @@
+UCS(Graph, StartNode, GoalNode)
+
+    // Graph is represented as adjacency list with costs
+    CREATE empty priority queue PQ
+    CREATE empty set Visited
+
+    INSERT (StartNode, cost = 0) into PQ
+
+    WHILE PQ is not empty DO
+        (CurrentNode, CurrentCost) ← REMOVE node with minimum cost from PQ
+
+        IF CurrentNode = GoalNode THEN
+            PRINT "Goal reached with cost", CurrentCost
+            STOP
+        END IF
+
+        IF CurrentNode not in Visited THEN
+            ADD CurrentNode to Visited
+
+            FOR each Neighbor of CurrentNode in Graph DO
+                Cost ← CurrentCost + cost(CurrentNode, Neighbor)
+                INSERT (Neighbor, Cost) into PQ
+            END FOR
+        END IF
+
+    END WHILE
+
+    PRINT "Goal not reachable"
+
+END UCS
