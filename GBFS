@@ -1,0 +1,28 @@
+GREEDY_BEST_FIRST_SEARCH(Graph, StartNode, GoalNode)
+
+    // Uses only heuristic h(n)
+    CREATE empty priority queue OPEN
+    CREATE empty set Visited
+
+    INSERT (StartNode, h(StartNode)) into OPEN
+
+    WHILE OPEN is not empty DO
+        CurrentNode ← REMOVE node with minimum h from OPEN
+
+        IF CurrentNode = GoalNode THEN
+            PRINT "Goal reached"
+            STOP
+        END IF
+
+        ADD CurrentNode to Visited
+
+        FOR each Neighbor of CurrentNode in Graph DO
+            IF Neighbor not in Visited THEN
+                INSERT (Neighbor, h(Neighbor)) into OPEN
+            END IF
+        END FOR
+    END WHILE
+
+    PRINT "Goal not reachable"
+
+END GREEDY_BEST_FIRST_SEARCH
