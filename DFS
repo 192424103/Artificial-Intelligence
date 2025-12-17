@@ -1,0 +1,18 @@
+DFS(Graph, StartNode)
+
+    CREATE empty set Visited
+
+    DFS_Visit(StartNode)
+
+    FUNCTION DFS_Visit(Node)
+        ADD Node to Visited
+        VISIT Node
+
+        FOR each Neighbor of Node in Graph DO
+            IF Neighbor not in Visited THEN
+                DFS_Visit(Neighbor)
+            END IF
+        END FOR
+    END FUNCTION
+
+END DFS
