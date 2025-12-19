@@ -202,3 +202,29 @@ ALPHA_BETA(Node, Depth, Alpha, Beta, IsMaxPlayer)
     END IF
 
 END ALPHA_BETA
+DECISION_TREE(TrainingData, Attributes)
+
+    IF all examples belong to same class THEN
+        RETURN Leaf with that class
+    END IF
+
+    IF Attributes is empty THEN
+        RETURN Leaf with majority class
+    END IF
+
+    SELECT best Attribute using Information Gain
+    CREATE Decision Node with selected Attribute
+
+    FOR each value v of selected Attribute DO
+        CREATE subset Data_v from TrainingData
+        IF Data_v is empty THEN
+            ATTACH Leaf with majority class
+        ELSE
+            ATTACH DECISION_TREE(Data_v, remaining Attributes)
+        END IF
+    END FOR
+
+    RETURN Decision Node
+
+END DECISION_TREE
+
