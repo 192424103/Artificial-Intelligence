@@ -257,4 +257,31 @@ CRYPTO_ARITHMETIC(Words, Result)
     PRINT "No solution exists"
 
 END CRYPTO_ARITHMETIC
+NEURAL_NETWORK(TrainingData, LearningRate, Epochs)
+
+    INITIALIZE weights and bias randomly
+
+    FOR epoch = 1 to Epochs DO
+        FOR each training example (Input, Target) DO
+
+            // Forward Propagation
+            Compute weighted sum: Z = W * Input + Bias
+            Apply activation function to get Output
+
+            // Error Calculation
+            Error = Target - Output
+
+            // Backpropagation
+            Compute gradient of Error
+            Update weights:
+                W = W + LearningRate * Error * Input
+            Update bias:
+                Bias = Bias + LearningRate * Error
+
+        END FOR
+    END FOR
+
+    RETURN trained network
+
+END NEURAL_NETWORK
 
